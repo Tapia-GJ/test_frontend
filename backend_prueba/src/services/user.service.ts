@@ -1,5 +1,6 @@
 import { prisma } from "../database/prisma.client.js";
 import { type CreateUserDTO, type UpdateUserDTO } from "@/models/user.dto.js";
+import * as bcryptjs from "bcryptjs";
 
 export class UserService {
   async getAll() {
@@ -13,10 +14,19 @@ export class UserService {
   }
 
   async create(data: CreateUserDTO) {
-    return prisma.user.create({ data });
+    const hashedPassword = await bcryptjs.hash(data.password, 10);
+    return prisma.user.create({
+      data: {
+        ...data,
+        password: hashedPassword,
+      },
+    });
   }
 
   async update(id: number, data: UpdateUserDTO) {
+    if (data.password) {
+      data.password = await bcryptjs.hash(data.password, 10);
+    }
     return prisma.user.update({
       where: { id },
       data,
