@@ -6,6 +6,12 @@ export class UserService {
     return prisma.user.findMany();
   }
 
+  async getByEmail(email: string) {
+    return prisma.user.findUnique({
+      where: { email },
+    });
+  }
+
   async create(data: CreateUserDTO) {
     return prisma.user.create({ data });
   }
