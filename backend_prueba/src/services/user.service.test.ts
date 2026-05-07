@@ -17,7 +17,7 @@ describe("UserService", () => {
       { id: 1, email: "test@test.com", name: "Test", age: 18, role: "USER" },
     ];
 
-    vi.mocked(prisma.user.findMany).mockResolvedValue(mockUsers);
+    vi.mocked(prisma.user.findMany).mockResolvedValue(mockUsers as any);
 
     const users = await userService.getAll();
 
