@@ -14,7 +14,7 @@ enum Role{
 
 model User {
   id    Int     @id @default(autoincrement())
-  email String  @unique
+  email String  
   name  String?
   age Int
   role Role
