@@ -85,5 +85,29 @@ export class UserController {
     }
   };
 
-  delete = async (req: Request, res: Response) => {};
+  delete = async (req: Request, res: Response) => {
+    try {
+      const userId = parseInt(req.params.id as string, 10);
+      if (isNaN(userId)) {
+        return res
+          .status(400)
+          .json({ error: "El ID proporcionado no es válido" });
+      }
+
+      await this.userService.delete(userId);
+      res.status(204).send();
+    } catch (error) {
+      console.error(error);
+
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "code" in error &&
+        (error as any).code === "P2025"
+      ) {
+        return res.status(404).json({ error: "El usuario no existe" });
+      }
+      res.status(500).json({ error: "Error al eliminar el usuario" });
+    }
+  };
 }
