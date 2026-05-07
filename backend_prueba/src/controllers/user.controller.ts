@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/user.service.js";
-import { CreateUserSchema } from "../models/user.dto.js";
+import { CreateUserSchema, UpdateUserSchema } from "../models/user.dto.js";
 import { ZodError } from "zod";
 
 export class UserController {
@@ -48,4 +48,42 @@ export class UserController {
       res.status(500).json({ error: "Error al crear el usuario" });
     }
   };
+
+  update = async (req: Request, res: Response) => {
+    try {
+      const userId = parseInt(req.params.id as string, 10);
+      if (isNaN(userId)) {
+        return res
+          .status(400)
+          .json({ error: "El ID proporcionado no es válido" });
+      }
+
+      const validatedData = UpdateUserSchema.parse(req.body);
+      const updatedUser = await this.userService.update(userId, validatedData);
+
+      res.status(200).json(updatedUser);
+    } catch (error) {
+      console.error(error);
+      if (error instanceof ZodError) {
+        console.log("errores", error.flatten);
+
+        return res.status(400).json({
+          error: "Datos de actualización incorrectos",
+          details: error.flatten().fieldErrors,
+        });
+      }
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "code" in error &&
+        (error as any).code === "P2025"
+      ) {
+        return res.status(404).json({ error: "El usuario no existe" });
+      }
+
+      res.status(500).json({ error: "Error al actualizar el usuario" });
+    }
+  };
+
+  delete = async (req: Request, res: Response) => {};
 }
