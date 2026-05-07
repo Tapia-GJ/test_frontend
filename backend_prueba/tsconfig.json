@@ -4,7 +4,8 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "generated/client": ["./generated/client"]
     },
     "outDir": "./dist",
     "rootDir": "./src",
