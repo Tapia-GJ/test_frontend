@@ -1,5 +1,5 @@
 
-export default function HomePage() {
+export default function ProfilePage() {
     return (
         <div>
 
