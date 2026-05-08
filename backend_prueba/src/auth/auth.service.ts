@@ -1,10 +1,11 @@
-import * as bcryptjs from "bcryptjs";
-import * as jwt from "jsonwebtoken";
+import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET || "token-test";
 
 export interface TokenPayload {
   userId: number;
+  role: string;
   iat: number;
   exp: number;
 }
@@ -19,8 +20,8 @@ export class AuthService {
     return bcryptjs.compare(password, hashed);
   }
 
-  generateToken(userId: number): string {
-    return jwt.sign({ userId }, JWT_SECRET, {
+  generateToken(userId: number, role: string): string {
+    return jwt.sign({ userId, role }, JWT_SECRET, {
       expiresIn: "24h",
     });
   }

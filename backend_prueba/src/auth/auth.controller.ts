@@ -35,7 +35,7 @@ export class AuthController {
           .json({ error: "correo o contraseña incorrectos" });
       }
 
-      const token = this.authService.generateToken(user.id);
+      const token = this.authService.generateToken(user.id, user.role);
 
       return res.status(200).json({
         token,
@@ -47,6 +47,7 @@ export class AuthController {
         },
       });
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ error: "Error al ingresar" });
     }
   };
