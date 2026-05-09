@@ -7,7 +7,6 @@ import ProfilePage from "@/pages/user/ProfilePage";
 import NewUserPage from "@/pages/admin/NewUserPage";
 import EditUserPage from "@/pages/admin/EditUserPage";
 import AuditPage from "@/pages/admin/AuditPage";
-import AdminLayout from "@/layouts/AdminLayout";
 function AppRouter() {
 
   return (
@@ -22,7 +21,7 @@ function AppRouter() {
             <Route path="profile" element={<ProfilePage />} />
           </Route>
 
-          <Route element={<AdminLayout />}>
+          <Route element={<RootLayout />}>
             <Route path="users/new" element={<NewUserPage />} />
             <Route path="users/:id/edit" element={<EditUserPage />} />
             <Route path="admin/audit" element={<AuditPage />} />
