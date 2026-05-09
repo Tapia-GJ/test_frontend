@@ -4,7 +4,17 @@ import * as bcryptjs from "bcryptjs";
 
 export class UserService {
   async getAll() {
-    return prisma.user.findMany();
+    return prisma.user.findMany({
+      omit: {
+        password: true,
+      },
+    });
+  }
+
+  async getById(id: number) {
+    return prisma.user.findUnique({
+      where: { id },
+    });
   }
 
   async getByEmail(email: string) {

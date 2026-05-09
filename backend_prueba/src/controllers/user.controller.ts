@@ -20,6 +20,35 @@ export class UserController {
     }
   };
 
+  getById = async (req: Request, res: Response) => {
+    try {
+      const userId = parseInt(req.params.id as string, 10);
+      if (isNaN(userId)) {
+        return res
+          .status(400)
+          .json({ error: "El ID proporcionado no es válido" });
+      }
+
+      const user = await this.userService.getById(userId);
+      if (!user) {
+        return res.status(404).json({ error: "El usuario no existe" });
+      }
+
+      res.json(user);
+    } catch (error) {
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "code" in error &&
+        (error as any).code === "P2025"
+      ) {
+        return res.status(404).json({ error: "El usuario no existe" });
+      }
+
+      res.status(500).json({ error: "Error al obtener el usuario" });
+    }
+  };
+
   create = async (req: Request, res: Response) => {
     try {
       const validatedData = CreateUserSchema.parse(req.body);

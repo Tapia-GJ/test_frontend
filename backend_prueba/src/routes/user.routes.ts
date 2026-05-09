@@ -6,6 +6,7 @@ const router = Router();
 const userController = new UserController();
 
 router.get("/", userController.getAll);
+router.get("/:id", userController.getById);
 router.post("/", requireRole(["ADMIN"]), userController.create);
 router.put("/:id", requireRole(["ADMIN"]), userController.update);
 router.delete("/:id", requireRole(["ADMIN"]), userController.delete);
