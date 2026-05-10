@@ -4,12 +4,14 @@ import { getUsersRequest } from '@/services/user.service';
 import { type User } from '@/types/user';
 import { useNavigate } from 'react-router';
 import { Button } from '../../components/Button';
+import { useAuthStore } from '@/store/authStore';
 
 export default function UsersPage() {
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
+    const { user } = useAuthStore();
 
     useEffect(() => {
         getUsersRequest().then((data) => {
@@ -43,12 +45,14 @@ export default function UsersPage() {
                     </div>
 
                     <div className="flex md:justify-end mt-4 md:mt-0">
-                        <Button 
-                            className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-xl transition-colors duration-200 disabled:opacity-50 items-center justify-center" 
-                            onClick={() => navigate('/users/new')}
-                        >
-                            Nuevo Usuario
-                        </Button>
+                        {user?.role !== 'USER' && (
+                            <Button 
+                                className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-xl transition-colors duration-200 disabled:opacity-50 items-center justify-center" 
+                                onClick={() => navigate('/users/new')}
+                            >
+                                Nuevo Usuario
+                            </Button>
+                        )}
                     </div>
                 </div>
 

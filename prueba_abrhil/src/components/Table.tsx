@@ -1,5 +1,6 @@
 import { type User } from "@/types/user";
 import { Button } from "@/components/Button";
+import { useAuthStore } from "@/store/authStore";
 
 interface TableProps {
     data: User[];
@@ -8,6 +9,8 @@ interface TableProps {
 }
 
 export default function Table({ data, onEdit, onDelete }: TableProps) {
+    const { user } = useAuthStore();
+
     return (
         <div className="w-full rounded-xl border border-border bg-card shadow-sm overflow-hidden">
             <table className="w-full text-sm">
@@ -29,9 +32,11 @@ export default function Table({ data, onEdit, onDelete }: TableProps) {
                         <th className="px-4 py-3 text-left font-medium text-muted-foreground">
                             Rol
                         </th>
-                        <th>
-                            Acciones
-                        </th>
+                        {user?.role !== 'USER' && (
+                            <th>
+                                Acciones
+                            </th>
+                        )}
                     </tr>
                 </thead>
 
@@ -58,12 +63,14 @@ export default function Table({ data, onEdit, onDelete }: TableProps) {
                                     {row.role}
                                 </span>
                             </td>
-                            <td>
-                                <div className="flex gap-2 items-center justify-center">
-                                    <Button onClick={() => onEdit(row.id)} className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-xl transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center">Editar</Button>
-                                    <Button onClick={() => onDelete(row.id)} className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-xl transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center">Eliminar</Button>
-                                </div>
-                            </td>
+                            {user?.role !== 'USER' && (
+                                <td>
+                                    <div className="flex gap-2 items-center justify-center">
+                                        <Button onClick={() => onEdit(row.id)} className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-xl transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center">Editar</Button>
+                                        <Button onClick={() => onDelete(row.id)} className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-xl transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center">Eliminar</Button>
+                                    </div>
+                                </td>
+                            )}
                         </tr>
                     ))}
                 </tbody>

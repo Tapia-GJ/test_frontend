@@ -3,7 +3,7 @@ import { useAuthStore } from "@/store/authStore";
 import { useNavigate } from "react-router";
 export default function Header() {
     const navigate = useNavigate();
-    const { logout } = useAuthStore();
+    const { logout, user } = useAuthStore();
 
     const handleLogout = () => {
         logout();
@@ -19,7 +19,9 @@ export default function Header() {
                 <div className="md:flex md:items-stretch md:justify-end ml-auto gap-2">
                     <Link to="/users" className="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-gray-900 no-underline flex items-center hover:bg-gray-300 rounded-xl">Usuarios</Link>
                     <Link to="/profile" className="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-gray-900 no-underline flex items-center hover:bg-gray-300 rounded-xl">Perfil</Link>
-                    <Link to="/admin/audit" className="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-gray-900 no-underline flex items-center hover:bg-gray-300 rounded-xl">Auditar</Link>
+                    {user?.role !== 'USER' && (
+                        <Link to="/admin/audit" className="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-gray-900 no-underline flex items-center hover:bg-gray-300 rounded-xl">Auditar</Link>
+                    )}
                     <button onClick={handleLogout} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">
                         Cerrar sesión
                     </button>
