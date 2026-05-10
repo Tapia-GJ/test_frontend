@@ -23,29 +23,60 @@ export class UserService {
     });
   }
 
-  async create(data: CreateUserDTO) {
+  async create(data: CreateUserDTO, actorId: number) {
     const hashedPassword = await bcryptjs.hash(data.password, 10);
-    return prisma.user.create({
+    const newUser = await prisma.user.create({
       data: {
         ...data,
         password: hashedPassword,
       },
     });
+
+    await prisma.auditLog.create({
+      data: {
+        action: "CREATE",
+        entityId: newUser.id,
+        actorId: actorId,
+        details: JSON.stringify(data),
+      },
+    });
+    return newUser;
   }
 
-  async update(id: number, data: UpdateUserDTO) {
+  async update(id: number, data: UpdateUserDTO, actorId: number) {
     if (data.password) {
       data.password = await bcryptjs.hash(data.password, 10);
     }
-    return prisma.user.update({
+    const updatedUser = await prisma.user.update({
       where: { id },
       data,
     });
+
+    await prisma.auditLog.create({
+      data: {
+        action: "UPDATE",
+        entityId: updatedUser.id,
+        actorId: actorId,
+        details: JSON.stringify(data),
+      },
+    });
+    return updatedUser;
   }
 
-  async delete(id: number) {
-    return prisma.user.delete({
+  async delete(id: number, actorId: number) {
+    const deletedUser = await prisma.user.delete({
       where: { id },
     });
+
+    await prisma.auditLog.create({
+      data: {
+        action: "DELETE",
+        entityId: deletedUser.id,
+        actorId: actorId,
+        details: JSON.stringify(deletedUser),
+      },
+    });
+
+    return deletedUser;
   }
 }

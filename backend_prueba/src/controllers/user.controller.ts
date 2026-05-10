@@ -52,7 +52,10 @@ export class UserController {
   create = async (req: Request, res: Response) => {
     try {
       const validatedData = CreateUserSchema.parse(req.body);
-      const newUser = await this.userService.create(validatedData);
+      const newUser = await this.userService.create(
+        validatedData,
+        req.user!.userId,
+      );
 
       res.status(201).json(newUser);
     } catch (error) {
@@ -88,7 +91,11 @@ export class UserController {
       }
 
       const validatedData = UpdateUserSchema.parse(req.body);
-      const updatedUser = await this.userService.update(userId, validatedData);
+      const updatedUser = await this.userService.update(
+        userId,
+        validatedData,
+        req.user!.userId,
+      );
 
       res.status(200).json(updatedUser);
     } catch (error) {
@@ -123,7 +130,7 @@ export class UserController {
           .json({ error: "El ID proporcionado no es válido" });
       }
 
-      await this.userService.delete(userId);
+      await this.userService.delete(userId, req.user!.userId);
       res.status(204).send();
     } catch (error) {
       console.error(error);
