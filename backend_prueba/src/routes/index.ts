@@ -8,6 +8,6 @@ const router = Router();
 
 router.use("/login", authRoutes);
 router.use("/users", authMiddleware(), userRoutes);
-router.use("/audit-logs", auditLogRoutes);
+router.use("/audit-logs", authMiddleware(), auditLogRoutes);
 
 export { router };
