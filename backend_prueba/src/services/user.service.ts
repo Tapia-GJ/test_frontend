@@ -37,7 +37,11 @@ export class UserService {
         action: "CREATE",
         entityId: newUser.id,
         actorId: actorId,
-        details: JSON.stringify(data),
+        details: JSON.stringify({
+          id: newUser.id,
+          name: newUser.name,
+          email: newUser.email,
+        }),
       },
     });
     return newUser;
@@ -57,7 +61,11 @@ export class UserService {
         action: "UPDATE",
         entityId: updatedUser.id,
         actorId: actorId,
-        details: JSON.stringify(data),
+        details: JSON.stringify({
+          id: updatedUser.id,
+          name: updatedUser.name,
+          email: updatedUser.email,
+        }),
       },
     });
     return updatedUser;
@@ -73,7 +81,6 @@ export class UserService {
         action: "DELETE",
         entityId: deletedUser.id,
         actorId: actorId,
-        details: JSON.stringify(deletedUser),
       },
     });
 
