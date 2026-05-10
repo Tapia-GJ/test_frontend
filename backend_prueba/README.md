@@ -26,20 +26,20 @@ git clone <URL_DEL_REPOSITORIO>
 
 ### 2. Instalar dependencias
 
-Posiciónate en la carpeta del backend (`/backend_prueba`) e instala los paquetes necesarios. Puedes usar `npm` o `pnpm` (recomendado).
-
-Usando pnpm:
-
-```bash
-cd backend_prueba
-pnpm install
-```
+Posiciónate en la carpeta del backend (`/backend_prueba`) e instala los paquetes necesarios. Puedes usar `npm` o `pnpm`.
 
 Usando npm:
 
 ```bash
 cd backend_prueba
 npm install
+```
+
+Usando pnpm:
+
+```bash
+cd backend_prueba
+pnpm install
 ```
 
 ### 3. Configurar variables de entorno
@@ -85,16 +85,16 @@ _Credenciales creadas:_
 
 Una vez configurado todo, puedes iniciar el servidor en modo desarrollo.
 
-Usando pnpm:
-
-```bash
-pnpm dev
-```
-
 Usando npm:
 
 ```bash
 npm run dev
+```
+
+Usando pnpm:
+
+```bash
+pnpm dev
 ```
 
 El servidor estará escuchando en el puerto configurado (normalmente `http://localhost:3000`).

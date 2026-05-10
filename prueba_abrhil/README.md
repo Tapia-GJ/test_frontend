@@ -27,20 +27,20 @@ git clone <URL_DEL_REPOSITORIO>
 
 ### 2. Instalar dependencias
 
-Posiciónate en la carpeta del frontend (`/prueba_abrhil`) e instala los paquetes necesarios. Puedes usar `npm` o `pnpm` (recomendado).
-
-Usando pnpm:
-
-```bash
-cd prueba_abrhil
-pnpm install
-```
+Posiciónate en la carpeta del frontend (`/prueba_abrhil`) e instala los paquetes necesarios. Puedes usar `npm` o `pnpm`.
 
 Usando npm:
 
 ```bash
 cd prueba_abrhil
 npm install
+```
+
+Usando pnpm:
+
+```bash
+cd prueba_abrhil
+pnpm install
 ```
 
 ### 3. Configurar variables de entorno
@@ -57,16 +57,16 @@ Asegúrate de que la variable `VITE_API_URL` apunte a la ruta donde está corrie
 
 Si seguiste los pasos al pie de la letra, ya puedes iniciar la aplicación en tu navegador.
 
-Usando pnpm:
-
-```bash
-pnpm dev
-```
-
 Usando npm:
 
 ```bash
 npm run dev
+```
+
+Usando pnpm:
+
+```bash
+pnpm dev
 ```
 
 La consola te indicará la URL local (normalmente `http://localhost:5173`) donde podrás visualizar y probar el proyecto.
