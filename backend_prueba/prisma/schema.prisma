@@ -20,6 +20,16 @@ model User {
   age Int
   role Role
   createdAt DateTime @default(now())
-
+  auditLog AuditLog[]
   @@unique([email])
 }
+
+model AuditLog {
+     id         Int      @id @default(autoincrement())
+     action     String  
+     entityId   Int     
+     actorId    Int     
+     actor      User     @relation(fields: [actorId], references: [id])
+     details    Json?   
+     createdAt  DateTime @default(now())
+   }
