@@ -1,73 +1,72 @@
-# React + TypeScript + Vite
+# Frontend - Prueba Técnica
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este es el cliente web del proyecto, desarrollado para consumir la API y proveer una interfaz de usuario moderna.
 
-Currently, two official plugins are available:
+## 🛠️ Stack Tecnológico
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Framework:** React con Vite
+- **Lenguaje:** TypeScript
+- **Estilos:** Tailwind CSS
+- **Estado Global:** Zustand
+- **Validaciones:** Zod
+- **Enrutamiento:** React Router
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Pasos para levantar el proyecto en local
 
-## Expanding the ESLint configuration
+Sigue estos pasos para arrancar el entorno de desarrollo del frontend. Asegúrate de tener el backend corriendo primero para poder hacer peticiones a la API.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Clonar el repositorio
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Si aún no lo hiciste, clona el repositorio desde GitHub:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone <URL_DEL_REPOSITORIO>
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Instalar dependencias
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Posiciónate en la carpeta del frontend (`/prueba_abrhil`) e instala los paquetes necesarios. Puedes usar `npm` o `pnpm` (recomendado).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Usando pnpm:
+
+```bash
+cd prueba_abrhil
+pnpm install
 ```
+
+Usando npm:
+
+```bash
+cd prueba_abrhil
+npm install
+```
+
+### 3. Configurar variables de entorno
+
+Crea un archivo llamado `.env` en la raíz de la carpeta `prueba_abrhil`. Puedes usar el archivo `.env.example` como ejemplo:
+
+```bash
+cp .env.example .env
+```
+
+Asegúrate de que la variable `VITE_API_URL` apunte a la ruta donde está corriendo tu backend local (por defecto `http://localhost:3000`).
+
+### 4. Ejecutar el Servidor de Desarrollo
+
+Si seguiste los pasos al pie de la letra, ya puedes iniciar la aplicación en tu navegador.
+
+Usando pnpm:
+
+```bash
+pnpm dev
+```
+
+Usando npm:
+
+```bash
+npm run dev
+```
+
+La consola te indicará la URL local (normalmente `http://localhost:5173`) donde podrás visualizar y probar el proyecto.
